@@ -118,11 +118,7 @@ export const CountryPicker = (props: CountryPickerProps) => {
 
   useEffect(() => {
     if (state.visible !== props.visible) {
-<<<<<<< HEAD
-      setState({ ...state, visible: props.visible || false });
-=======
-      setState({ ...state, visible: props.visible! })
->>>>>>> chore ignore expo assets
+      setState({ ...state, visible: props.visible || false })
     }
   }, [props.visible])
 
