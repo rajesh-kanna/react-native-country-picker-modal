@@ -3,7 +3,6 @@ import {
   TouchableOpacity,
   StyleSheet,
   View,
-  Platform,
   StyleProp,
   ViewStyle,
   TextProps,
@@ -154,7 +153,7 @@ export const FlagButton = ({
 }
 
 FlagButton.defaultProps = {
-  withEmoji: Platform.OS === 'ios',
+  withEmoji: true,
   withCountryNameButton: false,
   withCallingCodeButton: false,
   withCurrencyButton: false,
