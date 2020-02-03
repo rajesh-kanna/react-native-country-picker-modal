@@ -1,13 +1,13 @@
 import * as React from 'react'
 import { ModalProps, SafeAreaView, StyleSheet, Platform } from 'react-native'
-import AnimatedModal from './AnimatedModal'
-import Modal from './Modal';
+import { AnimatedModal } from './AnimatedModal'
+import { Modal } from './Modal'
 import { useTheme } from './CountryTheme'
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1
-  }
+    flex: 1,
+  },
 })
 
 export const CountryModal = ({
@@ -15,7 +15,11 @@ export const CountryModal = ({
   withModal,
   disableNativeModal,
   ...props
-}: ModalProps & { children: React.ReactNode; withModal?: boolean }) => {
+}: ModalProps & {
+  children: React.ReactNode
+  withModal?: boolean
+  disableNativeModal?: boolean
+}) => {
   const { backgroundColor } = useTheme()
   const content = (
     <SafeAreaView style={[styles.container, { backgroundColor }]}>
@@ -26,7 +30,11 @@ export const CountryModal = ({
     if (Platform.OS === 'web') {
       return <Modal {...props}>{content}</Modal>
     }
-    return disableNativeModal ? <AnimatedModal {...props}>{content}</AnimatedModal> : <Modal {...props}>{content}</Modal>
+    return disableNativeModal ? (
+      <AnimatedModal {...props}>{content}</AnimatedModal>
+    ) : (
+      <Modal {...props}>{content}</Modal>
+    )
   }
   return content
 }
@@ -34,5 +42,5 @@ export const CountryModal = ({
 CountryModal.defaultProps = {
   animationType: 'slide',
   animated: true,
-  withModal: true
+  withModal: true,
 }
