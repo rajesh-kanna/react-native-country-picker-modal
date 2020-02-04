@@ -1,56 +1,52 @@
-import React from 'react'
-import { Animated, Dimensions } from 'react-native'
+import * as React from 'react'
+import { Animated, Dimensions, StyleSheet } from 'react-native'
 
-const { width: WINDOW_WIDTH, height: WINDOW_HEIGHT } = Dimensions.get('screen')
+const { height } = Dimensions.get('window')
+
+const duration = 300
+const useNativeDriver = true
 
 interface Props {
   visible?: boolean
   children: React.ReactNode
 }
 
-const styles = {
-  wrapper: {
-    position: 'absolute',
-    width: WINDOW_WIDTH,
-    height: WINDOW_HEIGHT,
-    left: 0,
-    top: 0,
-    zIndex: 100,
-  },
+export const AnimatedModal = ({ children, visible }: Props) => {
+  const translateY = new Animated.Value(height)
+
+  const showModal = Animated.timing(translateY, {
+    toValue: 0,
+    duration,
+    useNativeDriver,
+  }).start
+
+  const hideModal = Animated.timing(translateY, {
+    toValue: height,
+    duration,
+    useNativeDriver,
+  }).start
+
+  React.useEffect(() => {
+    if (visible) {
+      showModal()
+    } else {
+      hideModal()
+    }
+  }, [visible])
+
+  return (
+    <Animated.View
+      style={{
+        ...StyleSheet.absoluteFillObject,
+        transform: [{ translateY }],
+        zIndex: 99,
+      }}
+    >
+      {children}
+    </Animated.View>
+  )
 }
 
-export class AnimatedModal extends React.Component<Props> {
-  aniVal = new Animated.Value(WINDOW_HEIGHT)
-
-  componentDidUpdate(prevProps: Props) {
-    const { visible } = this.props
-    if (visible && !prevProps.visible) {
-      this.showModal()
-    }
-    if (!visible && prevProps.visible) {
-      this.hideModal()
-    }
-  }
-
-  hideModal(): void {
-    Animated.timing(this.aniVal, {
-      toValue: WINDOW_HEIGHT,
-      duration: 300,
-    }).start()
-  }
-
-  showModal(): void {
-    Animated.timing(this.aniVal, {
-      toValue: 0,
-      duration: 300,
-    }).start()
-  }
-
-  render() {
-    return (
-      <Animated.View style={[styles.wrapper, { top: this.aniVal }]}>
-        {this.props.children}
-      </Animated.View>
-    )
-  }
+AnimatedModal.defaultProps = {
+  visible: false,
 }

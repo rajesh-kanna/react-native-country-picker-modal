@@ -42,7 +42,7 @@ export default function App() {
   const [countryCode, setCountryCode] = useState<CountryCode>('FR')
   const [country, setCountry] = useState<Country>(null)
   const [withCountryNameButton, setWithCountryNameButton] = useState<boolean>(
-    false
+    false,
   )
   const [withFlag, setWithFlag] = useState<boolean>(true)
   const [withEmoji, setWithEmoji] = useState<boolean>(true)
@@ -57,28 +57,28 @@ export default function App() {
     <View style={styles.container}>
       <Text style={styles.welcome}>Welcome to Country Picker !</Text>
       <Option
-        title="With country name on button"
+        title='With country name on button'
         value={withCountryNameButton}
         onValueChange={setWithCountryNameButton}
       />
-      <Option title="With flag" value={withFlag} onValueChange={setWithFlag} />
+      <Option title='With flag' value={withFlag} onValueChange={setWithFlag} />
       <Option
-        title="With emoji"
+        title='With emoji'
         value={withEmoji}
         onValueChange={setWithEmoji}
       />
       <Option
-        title="With filter"
+        title='With filter'
         value={withFilter}
         onValueChange={setWithFilter}
       />
       <Option
-        title="With calling code"
+        title='With calling code'
         value={withCallingCode}
         onValueChange={setWithCallingCode}
       />
       <Option
-        title="With alpha filter code"
+        title='With alpha filter code'
         value={withAlphaFilter}
         onValueChange={setWithAlphaFilter}
       />
@@ -91,7 +91,7 @@ export default function App() {
           withAlphaFilter,
           withCallingCode,
           withEmoji,
-          onSelect
+          onSelect,
         }}
         visible
       />
@@ -137,6 +137,7 @@ export default function App() {
 - `closeButtonImage?`: [ImageSourcePropType](https://facebook.github.io/react-native/docs/image#props)
 - `closeButtonStyle?`: StyleProp<ViewStyle>
 - `closeButtonImageStyle?`: StyleProp<ImageStyle>
+- `disableNativeModal?`: boolean (you have to wrap your all app with CountryModalProvider)
 
 ## Dark theme example
 
